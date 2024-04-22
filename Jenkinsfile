@@ -4,14 +4,12 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                // Clone the repository
                 git branch: 'main', url: 'https://github.com/thaya2000/4237-Thayanan.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
                 script {
                     docker.build("react-docker:tag")
                 }
@@ -20,9 +18,11 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                // Run Docker container
                 script {
-                    docker.image("react-docker:tag").run("-d -p 8083:8083 --name react-docker")
+                    // Run Docker container and capture the container ID
+                    def containerId = docker.image("react-docker:tag").run("-d -p 8083:8083 --name react-docker")
+                    // Store the container ID in an environment variable for later use
+                    env.CONTAINER_ID = containerId
                 }
             }
         }
@@ -39,8 +39,9 @@ pipeline {
         always {
             // Cleanup
             script {
-                docker.image("react-docker:tag").stop()
-                docker.image("react-docker:tag").remove(force: true)
+                // Stop and remove the Docker container using the stored container ID
+                docker.container(env.CONTAINER_ID).stop()
+                docker.container(env.CONTAINER_ID).remove(force: true)
             }
         }
     }
