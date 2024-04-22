@@ -37,12 +37,13 @@ pipeline {
 
     post {
         always {
-            // Cleanup
-            script {
-                // Stop and remove the Docker container using the stored container ID
-                docker.image("react-docker:tag").container(env.CONTAINER_ID).stop()
-                docker.image("react-docker:tag").container(env.CONTAINER_ID).remove(force: true)
-            }
+            // Stop and remove the Docker container
+            sh "docker stop ${env.CONTAINER_ID}"
+            sh "docker rm ${env.CONTAINER_ID}"
+        
+            // Remove the Docker image
+            sh "docker rmi react-docker:tag"
         }
     }
+
 }
