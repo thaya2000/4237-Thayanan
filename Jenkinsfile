@@ -40,8 +40,8 @@ pipeline {
             // Cleanup
             script {
                 // Stop and remove the Docker container using the stored container ID
-                docker.container(env.CONTAINER_ID).stop()
-                docker.container(env.CONTAINER_ID).remove(force: true)
+                docker.image("react-docker:tag").container(env.CONTAINER_ID).stop()
+                docker.image("react-docker:tag").container(env.CONTAINER_ID).remove(force: true)
             }
         }
     }
