@@ -1,18 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        HTTP_PROXY = ''
-        HTTPS_PROXY = ''
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
-                script {
-                    sh 'git config --global --unset http.proxy'
-                    sh 'git config --global --unset https.proxy'
-                }
                 // Clone the repository
                 git branch: 'main', url: 'https://github.com/thaya2000/4237-Thayanan.git'
             }
