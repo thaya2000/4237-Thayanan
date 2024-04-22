@@ -1,18 +1,18 @@
 pipeline {
     agent any
 
-    environment {
-        HTTP_PROXY = 'http://10.50.225.222:3128'
-        HTTPS_PROXY = 'http://10.50.225.222:3128'
-    }
+    // environment {
+    //     HTTP_PROXY = 'http://10.50.225.222:3128'
+    //     HTTPS_PROXY = 'http://10.50.225.222:3128'
+    // }
 
     stages {
         stage('Clone Repository') {
             steps {
-                script {
-                    sh 'git config --global http.proxy http://10.50.225.222:3128'
-                    sh 'git config --global https.proxy http://10.50.225.222:3128'
-                }
+                // script {
+                //     sh 'git config --global http.proxy http://10.50.225.222:3128'
+                //     sh 'git config --global https.proxy http://10.50.225.222:3128'
+                // }
                 // Clone the repository
                 git branch: 'main', url: 'https://github.com/thaya2000/4237-Thayanan.git'
             }
