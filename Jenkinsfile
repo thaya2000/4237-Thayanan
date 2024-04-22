@@ -27,6 +27,12 @@ pipeline {
             }
         }
 
+        stage('Showing Running Containers') {
+            steps {
+                sh 'docker ps'
+            }
+        }
+
         stage('Verify Deployment') {
             steps {
                 // Verify deployment
