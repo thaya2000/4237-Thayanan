@@ -35,15 +35,19 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Stop and remove the Docker container
-            sh "docker stop ${env.CONTAINER_ID}"
-            sh "docker rm ${env.CONTAINER_ID}"
-        
-            // Remove the Docker image
-            sh "docker rmi react-docker:tag"
+post {
+    always {
+        // Cleanup
+        script {
+            // Get the container ID from the environment variable
+            def containerId = env.CONTAINER_ID
+            
+            // Stop and remove the Docker container using the container ID
+            sh "docker stop $containerId"
+            sh "docker rm $containerId"
         }
     }
+}
+
 
 }
