@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/thaya2000/4237-Thayanan.git'
+                git branch: 'main', 
+                    url: 'https://github.com/thaya2000/4237-Thayanan.git',
+                    proxy: 'http://10.50.225.222:3128' // Proxy configuration
+                
             }
         }
 

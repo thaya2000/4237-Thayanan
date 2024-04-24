@@ -6,6 +6,12 @@ WORKDIR /home/app/
 
 COPY . .
 
+RUN npm config set proxy http://10.50.225.222:3128
+
+RUN npm config set https-proxy http://10.50.225.222:3128
+
+RUN npm config set https-proxy http://10.50.225.222:3128
+
 RUN npm i
 
 EXPOSE 8083
@@ -16,4 +22,4 @@ RUN apt-get install -y dumb-init
 # # Use dumb-init to handle signals gracefully
 CMD ["dumb-init", "npm", "run", "dev"]
 
-# RUN npm run dev
+
